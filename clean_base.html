@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Base propre pour le projet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JQUERY INCLUSION -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div id="map_chart"></div>
+
+    <div id="temporal_chart"></div>
+
+    <div id="repartition_chart"></div>
+
+    <script>
+        // Bloc d'execution principal
+        // ----------------------------------------------------------------------
+        $(document).ready(function () {
+
+            initMapChart();
+            initTemporalChart();
+            initRepartitionChart();
+
+        });
+
+        // Fonction d'initialisation d'une map
+        // ----------------------------------------------------------------------
+        var initMapChart = function () {
+
+            // Appel AJAX en jQuery
+            $.ajax({
+                type: 'get',
+                cache: false,
+                url: 'NOM_VERS_FICHIER_JSON',
+                complete: function (textStatus, jqXHR) {
+
+                    var objRep = eval('(' + textStatus.responseText + ')');
+
+                    console.log(objRep);
+
+                    // ICI LE CODE PREPARANT VOS DONNEES
+
+                    // ICI LE CODE INITIALISANT VOTRE CHART
+
+                }
+            });
+        };
+
+        // FAIRE LES 2 AUTRES FONCTIONS
+        // ----------------------------------------------------------------------
+    </script>
+
+</body>
+
+</html>

@@ -1,13 +1,129 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>La data du Porno</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
+
 <body>
     
-    
+    <section class="container">
+        <h1>La data du porno</h1>
+        <div id="chart_div"></div>
+        <div id="donutchart" style="width: 900px; height: 500px;"></div>
+    </section>
+
+
+
+    <script>
+
+        // Bloc d'execution principal
+        //tablet users pornhub UK US
+        $(document).ready(function () {
+
+            /* appel line chart */
+            google.charts.load('current', { packages: ['corechart', 'line'] });
+            google.charts.setOnLoadCallback(initTemporalChart);
+
+            google.charts.load("current", { packages: ["corechart"] });
+            google.charts.setOnLoadCallback(drawChart);
+
+
+        });
+
+        // Fonction d'initialisation d'une line chart
+        // ----------------------------------------------------------------------
+        var initTemporalChart = function () {
+
+            // Appel AJAX en jQuery
+            $.ajax({
+                type: 'get',
+                cache: false,
+                url: 'data/tablet.json',
+                complete: function (textStatus, jqXHR) {
+
+                    var objRep = eval('(' + textStatus.responseText + ')');
+
+                    var tabletData = new Array();
+                    tabletData.push(['Year', 'UK', 'US']);
+
+                    for (var index = 0; index < objRep.length; index++) {
+                        var element = objRep[index];
+                        var year = "Année " + element.Year;
+                        var valueUK = element.UK;
+                        var valueUS = element.US;
+
+                        tabletData.push([year, valueUK, valueUS]);
+                    }
+
+                    console.log(tabletData);
+
+                    var data = google.visualization.arrayToDataTable(tabletData);
+
+                    var options = {
+                        title: 'Share of Pornhub traffic from tablets',
+                        curveType: 'function',
+                        legend: { position: 'bottom' }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+                    chart.draw(data, options);
+
+                }
+            });
+        };
+
+        // Pie chart number of women using pornhub
+
+        var drawChart = function () {
+
+            // Appel AJAX en jQuery
+            $.ajax({
+                type: 'get',
+                cache: false,
+                url: 'data/visiteur_femme.json',
+                complete: function (textStatus, jqXHR) {
+
+                    var objRep = eval('(' + textStatus.responseText + ')');
+
+                    var womenData = new Array();
+                    womenData.push(['Countries', 'Female_visitors']);
+
+                    for (var index = 0; index < objRep.length; index++) {
+                        var element = objRep[index];
+                        var countries = element.Countries;
+                        var valueWomen = element.Female_visitors;
+
+                        womenData.push([countries, valueWomen]);
+                    }
+
+                    console.log(womenData);
+
+                    var data = google.visualization.arrayToDataTable(womenData);
+
+                    var options = {
+                        title: 'Top 10 countries with the most women visitors on PornHub',
+                        pieHole: 0.4,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                    chart.draw(data, options);
+
+                }
+            });
+        };
+
+
+
+    </script>
+
 </body>
+
 </html>
