@@ -5,6 +5,8 @@ h1 {
     font-family: 'Karla';
     font-size: 40px;
     margin: 5vh;
+    display: flex;
+    justify-content: center;
 }
 
 body {
@@ -13,8 +15,6 @@ body {
 
 rect {
     fill: #ffeaf1;
-    width: 100% !important;
-    height: auto !important;
    
 }
 
@@ -24,15 +24,46 @@ text {
 }
 
 .container {
+    display: grid;
+    grid-template-rows: 0.5fr 2fr 2fr;
+}
+
+p {
+    font-family: 'Karla';
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.footer {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-#chart_div {
-    
+a {
+    font-family: 'Karla';
+    color: black;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    animation: roll 3s infinite;
+    transform: rotate(30deg);
+
 }
 
-#donutchart {
-    
+@keyframes roll {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .video {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
 }
+  }
